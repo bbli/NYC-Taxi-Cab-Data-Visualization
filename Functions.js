@@ -1,14 +1,16 @@
-function projectWorldCoordinates(datapoints){
+function projectWorldCoordinates(datapoints,origin){
     // Projects longitude and latitude to
     // world mercator coordinates
+    // and then translates them with respect to the origin.
+    let projected_origin = project(origin,g_zoom);
     for (let point of datapoints){
-        let temp_pickup= point.pickup.slice();
-        assert(temp_pickup.length == 2, "pickup Array needs to have length of 2!");
-        point.pickup = project(temp_pickup,g_zoom);
+        point.pickup = project(point.pickup,g_zoom);
+        point.pickup[0]= point.pickup[0]-projected_origin[0];
+        point.pickup[1]= point.pickup[1]-projected_origin[1];
 
-        let temp_dropoff= point.dropoff.slice();
-        assert(temp_dropoff.length == 2, "dropoff Array needs to have length of 2!");
-        point.dropoff = project(temp_dropoff,g_zoom);
+        point.dropoff = project(point.dropoff,g_zoom);
+        point.dropoff[0]= point.dropoff[0]-projected_origin[0];
+        point.dropoff[1]= point.dropoff[1]-projected_origin[1];
     }
 }
 ////////////////////////////////////////////////////////////////////////////

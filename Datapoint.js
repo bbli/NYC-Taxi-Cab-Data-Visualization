@@ -28,9 +28,14 @@ const DatapointSystem = function (table){
         var dropoff = [table.getNum(i,3),table.getNum(i,4)];
         this.datapoints[i] = new Datapoint(pickup,dropoff,payment,timediff);   
     }
-    projectWorldCoordinates(this.datapoints);
+    projectWorldCoordinates(this.datapoints,g_origin);
 }
 
+DatapointSystem.prototype.plot = function(idk) {
+    for (let point of this.datapoints){
+        point.plot();
+    }
+};
 
 
 
