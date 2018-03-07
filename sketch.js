@@ -2,12 +2,14 @@ let mapimg;
 let easycam;
 let table;
 let system;
+let colorbar;
 
-let g_zoom =9.9;
-let g_origin=[-73.99187,40.7288];
+let g_zoom = 10.6;
+let g_origin=[-73.92756,40.75318];
 //controls the size of the image we get from mapbox
 //and the plane we create
 let g_plane_resolution= [512,512];
+let g_max_payment = 158;
 
 
 function preload(){
@@ -16,6 +18,8 @@ function preload(){
 
 function setup() {
 	createCanvas(windowWidth, windowHeight,WEBGL);
+
+    colorbar = loadImage('./data/colormapManip_14.png')
 
     //mapimg = loadImage('https://api.mapbox.com/styles/v1/mapbox/light-v9/static/'
         //+g_origin[0]+','+g_origin[1]+','+g_zoom+',0,0/'+g_plane_resolution[0]+'x'+g_plane_resolution[1]+
@@ -28,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-	background(0);
+	background(200);
 
     push();
     //texture(mapimg);
@@ -36,5 +40,6 @@ function draw() {
     pop();
 
   ////////////////////////////////////////////////////////////////////////////
+    system.plot();
 }
 

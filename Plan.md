@@ -1,7 +1,9 @@
 ## Plan
 * Longitude and Latitude will be mapped to a rectangle
-* Payment will be mapped to thickness of string
-* Time_diff will be number of loops 
+* Payment will be mapped to jet color(get max and min from python)
+* Time_diff will be the z axis 
+
+* Allow user to filter results
 
 ## Implementations
 * try texturing string onto different shapes
@@ -9,3 +11,8 @@
 * Get map onto 3d 
 * test complete mapping on san francisco
 * decide on data structure for points/functions
+
+
+## Steps
+* change temp variables in projectWorldCoordinates
+* set cutoff point for payments
