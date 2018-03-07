@@ -47,7 +47,7 @@ DatapointSystem.prototype.plot = function(idk) {
     //for (let point of this.datapoints){
         //point.plot();
     //}
-    for (let i=0; i<500; i++){
+    for (let i=0; i<200; i++){
         this.datapoints[i].plot();
     }
 };

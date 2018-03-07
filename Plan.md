@@ -5,6 +5,10 @@
 
 * Allow user to filter results
 
+* Indeed lines look too simple/too much of a tower
+    * Two planes, one bigger than the other
+    * 
+
 ## Implementations
 * try texturing string onto different shapes
 
@@ -16,3 +20,6 @@
 ## Steps
 * change temp variables in projectWorldCoordinates
 * set cutoff point for payments
+* scale/set cutoff for time??
+
+* profile code
