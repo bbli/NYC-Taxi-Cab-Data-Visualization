@@ -18,6 +18,7 @@ const Datapoint = function (pickup, dropoff,payment, timediff){
 }
 
 const DatapointSystem = function (table){
+    // Sets up the datapoints with their longitude and latitude mapped
     this.datapoints = [];
 
     var rows = table.getRowCount();
@@ -29,9 +30,10 @@ const DatapointSystem = function (table){
         var dropoff = [table.getNum(i,3),table.getNum(i,4)];
         this.datapoints[i] = Datapoint(pickup,dropoff,payment,timediff);   
     }
+    projectWorldCoordinates(this.datapoints);
 }
 
-DatapointSystem.prototype.speak = function(){console.log(12)};
+
 
 
 //class DatapointSystem {

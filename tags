@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+assert	Functions.js	/^function assert(condition, message){$/;"	f
+const	Datapoint.js	/^const Datapoint = function (pickup, dropoff,payment, timediff){$/;"	f
+const	Datapoint.js	/^const DatapointSystem = function (table){$/;"	c
+draw	sketch.js	/^function draw() {$/;"	f
+mercX	Functions.js	/^function mercX(lon) {$/;"	f
+mercY	Functions.js	/^function mercY(lat) {$/;"	f
+preload	sketch.js	/^function preload(){$/;"	f
+project	Functions.js	/^function project(array){$/;"	f
+projectWorldCoordinates	Functions.js	/^function projectWorldCoordinates(datapoints){$/;"	f
+setup	sketch.js	/^function setup() {$/;"	f
