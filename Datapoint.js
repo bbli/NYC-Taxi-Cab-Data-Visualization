@@ -9,12 +9,10 @@
 //}
 
 const Datapoint = function (pickup, dropoff,payment, timediff){
-    return {
-        pickup: pickup,
-        dropoff: dropoff,
-        payment: payment,
-        timediff: timediff,
-    }
+    this.pickup = pickup;
+    this.dropoff = dropoff;
+    this.payment = payment;
+    this.timediff = timediff;
 }
 
 const DatapointSystem = function (table){
@@ -28,7 +26,7 @@ const DatapointSystem = function (table){
         var timediff = table.getNum(i,6);
         var pickup = [table.getNum(i,1), table.getNum(i,2)];
         var dropoff = [table.getNum(i,3),table.getNum(i,4)];
-        this.datapoints[i] = Datapoint(pickup,dropoff,payment,timediff);   
+        this.datapoints[i] = new Datapoint(pickup,dropoff,payment,timediff);   
     }
     projectWorldCoordinates(this.datapoints);
 }
