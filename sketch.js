@@ -1,12 +1,16 @@
+//User defined
+let system;
+
+//Setup
 let mapimg;
 let easycam;
 let table;
-let system;
 let colorbar;
 
+//Data
 let g_zoom = 10.6;
 let g_origin=[-73.92756,40.75318];
-//controls the size of the image we get from mapbox
+//g_plane_resolution controls the size of the image we get from mapbox
 //and the plane we create
 let g_plane_resolution= [512,512];
 let g_max_payment = 158;

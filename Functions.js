@@ -5,12 +5,10 @@ function projectWorldCoordinates(datapoints,origin){
     let projected_origin = project(origin,g_zoom);
     for (let point of datapoints){
         point.pickup = project(point.pickup,g_zoom);
-        point.pickup[0]= point.pickup[0]-projected_origin[0];
-        point.pickup[1]= point.pickup[1]-projected_origin[1];
+        point.pickup = originTranslate(point.pickup,projected_origin);
 
         point.dropoff = project(point.dropoff,g_zoom);
-        point.dropoff[0]= point.dropoff[0]-projected_origin[0];
-        point.dropoff[1]= point.dropoff[1]-projected_origin[1];
+        point.dropoff = originTranslate(point.dropoff,projected_origin);
     }
 }
 ////////////////////////////////////////////////////////////////////////////
@@ -37,6 +35,13 @@ function mercY(lat,zoom) {
 }
 ////////////////////////////////////////////////////////////////////////////
 
+function originTranslate(array, projected_origin){
+    x = array[0]-projected_origin[0];
+    y = array[1]-projected_origin[1];
+    return [x,y]
+}
+
+////////////////////////////////////////////////////////////////////////////
 
 function assert(condition, message){
     if (!condition) {
