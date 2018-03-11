@@ -10,20 +10,49 @@
 
 const Datapoint = function (pickup, dropoff,payment, timediff){
     this.pickup = pickup;
+
     this.dropoff = dropoff;
-    this.payment = payment;
-    this.timediff = timediff;
+
+    this.c1 = control1(pickup,dropoff,1);
+    this.c2 = control2(pickup,dropoff,1);
+
+    this.curve = sq(map(timediff,0,g_time_cutoff,5,10));
+
+    this.c = getColor(colorbar,payment);
+
+    //this.temp_payment = payment;
+    //this.temp_timediff = timediff;
+}
+
+function control1(pickup,dropoff,strength){
+    return [strength*dropoff[0]/2-pickup[0]/2,strength*dropoff[1]/2-pickup[1]/2,-2*strength*g_z_offset];
+}
+
+function control2(pickup,dropoff,strength){
+    return [strength*2*dropoff[0]-pickup[0],strength*2*dropoff[1]-pickup[1],-1*strength*g_z_offset];
+}
+
+function getColor(colorbar,payment){
+    let mapped_payment = map(payment,0,g_payment_cutoff,100,500);
+    return colorbar.get(this.mapped_payment, colorbar.height/2);
 }
 
 Datapoint.prototype.plot = function(idk) {
    
-    let mapped_payment = map(this.payment,0,g_max_payment,100,500);
-    let c = colorbar.get(mapped_payment, colorbar.height/2);
     push();
-    stroke(c);
+    fill(255,10);
+    //Turn on when I use p5 manager
+    //stroke(this.c);
+    stroke(0);
     strokeWeight(3);
-    line(this.pickup[0],this.pickup[1],30,this.dropoff[0],this.dropoff[1],30+100);
+    //line(this.pickup[0],this.pickup[1],0,this.dropoff[0],this.dropoff[1],g_z_offset);
+    curveTightness(this.curve);
+    drawCurve(this.c1,this.pickup,this.dropoff,this.c2);
     pop();
+};
+
+function drawCurve(c1,pickup,dropoff,c2) {
+    curve(c1[0],c1[1],c1[2],pickup[0],pickup[1],0,dropoff[0],dropoff[1],g_z_offset,c2[0],c2[1],c2[2]);
 };
 
 
