@@ -31,10 +31,11 @@ function setup() {
         +g_origin[0]+','+g_origin[1]+','+g_zoom+',0,0/'+g_plane_resolution[0]+'x'+g_plane_resolution[1]+
         '?access_token=pk.eyJ1IjoiYmJsaSIsImEiOiJjamVjYXJsMGUwaHluMzNvZDE4MmkxYW40In0.AWDPnfoCzeVRY78xDLyjTQ');
     
-    easycam = createEasyCam(p5.RendererGL,{distance:2500});
+    easycam = createEasyCam(p5.RendererGL,{distance:8000});
     //easycam = createEasyCam();
     system = new DatapointSystem(table);
 
+    gui = new Gui();
 }
 
 function draw() {
@@ -51,7 +52,8 @@ function draw() {
     plane(g_plane_resolution[0],g_plane_resolution[1]);
     pop();
 
+    gui.displayTitle();
+
   ////////////////////////////////////////////////////////////////////////////
-    system.plot();
 }
 
