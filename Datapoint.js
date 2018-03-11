@@ -62,7 +62,7 @@ const DatapointSystem = function (table){
 
     var rows = table.getRowCount();
     console.log('Row count is :'+rows);
-    for (let i = 0 ; i < rows; i++) {
+    for (let i = 0 ; i < floor(rows)/10; i++) {
         var payment = table.getNum(i,5);
         var timediff = table.getNum(i,6);
         var pickup = [table.getNum(i,1), table.getNum(i,2)];
@@ -73,11 +73,8 @@ const DatapointSystem = function (table){
 }
 
 DatapointSystem.prototype.plot = function(idk) {
-    //for (let point of this.datapoints){
-        //point.plot();
-    //}
-    for (let i=0; i<200; i++){
-        this.datapoints[i].plot();
+    for (let point of this.datapoints){
+        point.plot();
     }
 };
 
