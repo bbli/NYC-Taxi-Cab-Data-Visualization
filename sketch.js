@@ -1,6 +1,7 @@
 //User defined
 let system;
 let gui;
+let g_toggle_top_map =true;
 
 //Setup
 let mapimg;
@@ -34,7 +35,8 @@ function setup() {
     var state = {
         distance: 950,
         center: [0,0,0],
-        rotation: [0.794139069590646, 0.6032586662637968, 0.03584418452263494, -0.06432195708491893]
+        //rotation: [0.794139069590646, 0.6032586662637968, 0.03584418452263494, -0.06432195708491893]
+        rotation : [1,0,0,0]
     }
     //inserting state here does not work for some reason.
     // As you can see, I had to manually set the inital and reset states.
@@ -57,10 +59,13 @@ function draw() {
     plane(g_plane_resolution[0],g_plane_resolution[1]);
 
 
-    push();
-    translate(0,0,g_z_offset);
-    plane(g_plane_resolution[0],g_plane_resolution[1]);
-    pop();
+    if (g_toggle_top_map){
+
+        push();
+        translate(0,0,g_z_offset);
+        plane(g_plane_resolution[0],g_plane_resolution[1]);
+        pop();
+    }
 
     gui.displayTitle();
 

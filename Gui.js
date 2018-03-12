@@ -12,6 +12,7 @@ function Gui(){
     this.pg.textSize(40);
     this.pg.text("Curved Taxi Paths",30,50);
 
+    /////////////////////POSITION/SIZE OF SLIDERS////////////////////////
     let start_height = 100;
     let slider_seperation = 60;
     let slider_width = 200
@@ -32,17 +33,11 @@ function Gui(){
     this.update_button.size(slider_width,125);
     this.top_map_button.size(slider_width,125);
 
-    //let bg_color = color(222,100,167);
-    //this.update_button.style('background-color', bg_color);
-    //this.low_payment_slider.style('background', bg_color);
-    //this.high_payment_slider.style('background', bg_color);
-    //this.low_time_slider.style('background', bg_color);
-    //this.high_time_slider.style('background', bg_color);
+    this.sliders = selectAll('input');
+    setSliderClass(this.sliders);
 
-    //this.low_payment_slider.style('border-radius',5);
-    //this.high_payment_slider.style('border-radius',5);
-    //this.low_time_slider.style('border-radius',5);
-    //this.high_time_slider.style('border-radius',5);
+    /////////////////////Callbacks////////////////////////
+    this.top_map_button.mousePressed(toggleTopMap);
 }
 
 Gui.prototype.displayTitle = function() {
@@ -54,3 +49,12 @@ Gui.prototype.displayTitle = function() {
     easycam.endHUD();
 };
 
+function setSliderClass(sliders){
+    for (let slider of sliders){
+        slider.addClass('slider');
+    }
+}
+
+function toggleTopMap(){
+    g_toggle_top_map = (!g_toggle_top_map);
+}
