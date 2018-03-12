@@ -10,8 +10,9 @@
 
 const Datapoint = function (pickup, dropoff,payment, timediff){
     this.pickup = pickup;
-
     this.dropoff = dropoff;
+    this.payment = payment;
+    this.timediff = timediff;
 
     this.c1 = control1(pickup,dropoff,1);
     this.c2 = control2(pickup,dropoff,1);
@@ -20,10 +21,13 @@ const Datapoint = function (pickup, dropoff,payment, timediff){
 
     this.c = getColor(colorbar,payment);
 
+    this.show = true;
+
     //this.temp_payment = payment;
     //this.temp_timediff = timediff;
 }
 
+/////////////////////Setup Functions////////////////////////
 function control1(pickup,dropoff,strength){
     return [strength*dropoff[0]/2-pickup[0]/2,strength*dropoff[1]/2-pickup[1]/2,-2*strength*g_z_offset];
 }
@@ -36,24 +40,42 @@ function getColor(colorbar,payment){
     let mapped_payment = map(payment,0,g_payment_cutoff,100,500);
     return colorbar.get(this.mapped_payment, colorbar.height/2);
 }
+////////////////////////////////////////////////////////////////////////////
 
 Datapoint.prototype.plot = function(idk) {
    
-    push();
-    fill(255,10);
-    //Turn on when I use p5 manager
-    //stroke(this.c);
-    stroke(0);
-    strokeWeight(3);
-    //line(this.pickup[0],this.pickup[1],0,this.dropoff[0],this.dropoff[1],g_z_offset);
-    curveTightness(this.curve);
-    drawCurve(this.c1,this.pickup,this.dropoff,this.c2);
-    pop();
+    if (this.show){
+        push();
+        fill(255,10);
+        //Turn on when I use p5 manager
+        //stroke(this.c);
+        stroke(0);
+        strokeWeight(3);
+        //line(this.pickup[0],this.pickup[1],0,this.dropoff[0],this.dropoff[1],g_z_offset);
+        curveTightness(this.curve);
+        drawCurve(this.c1,this.pickup,this.dropoff,this.c2);
+        pop();
+
+    }
 };
+
+Datapoint.prototype.setShow = function(low_payment,high_payment,low_time,high_time) {
+    var a = (low_payment<this.payment);
+    var b = (high_payment>this.payment);
+    var c = (low_time<this.timediff);
+    var d = (high_time>this.timediff);
+    
+    var bool = (a&&b&&c&&d);
+    this.show = bool;
+};
+
+
+/////////////////////Helper Functions////////////////////////
 
 function drawCurve(c1,pickup,dropoff,c2) {
     curve(c1[0],c1[1],c1[2],pickup[0],pickup[1],0,dropoff[0],dropoff[1],g_z_offset,c2[0],c2[1],c2[2]);
 };
+////////////////////////////////////////////////////////////////////////////
 
 
 const DatapointSystem = function (table){
@@ -77,6 +99,13 @@ DatapointSystem.prototype.plot = function(idk) {
         point.plot();
     }
 };
+
+DatapointSystem.prototype.filterDisplay = function(low_payment,high_payment, low_time,high_time) {
+    for (let point of this.datapoints){
+        point.setShow(low_payment,high_payment,low_time,high_time);
+    }
+};
+
 
 
 
