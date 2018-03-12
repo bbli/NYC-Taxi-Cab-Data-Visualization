@@ -31,7 +31,17 @@ function setup() {
         +g_origin[0]+','+g_origin[1]+','+g_zoom+',0,0/'+g_plane_resolution[0]+'x'+g_plane_resolution[1]+
         '?access_token=pk.eyJ1IjoiYmJsaSIsImEiOiJjamVjYXJsMGUwaHluMzNvZDE4MmkxYW40In0.AWDPnfoCzeVRY78xDLyjTQ');
     
-    easycam = createEasyCam(p5.RendererGL,{distance:8000});
+    var state = {
+        distance: 950,
+        center: [0,0,0],
+        rotation: [0.794139069590646, 0.6032586662637968, 0.03584418452263494, -0.06432195708491893]
+    }
+    //inserting state here does not work for some reason.
+    // As you can see, I had to manually set the inital and reset states.
+    easycam = createEasyCam(p5.RendererGL,state);
+    easycam.setDistanceMax(1500);
+    easycam.setState(state);
+    easycam.state_reset = state;
     //easycam = createEasyCam();
     system = new DatapointSystem(table);
 
