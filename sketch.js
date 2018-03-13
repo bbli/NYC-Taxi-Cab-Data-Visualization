@@ -1,5 +1,5 @@
 //User defined
-let g_system;
+let system;
 let gui;
 let g_toggle_top_map =true;
 
@@ -46,15 +46,15 @@ function setup() {
     easycam.setState(state);
     easycam.state_reset = state;
     //easycam = createEasyCam();
-    g_system = new DatapointSystem(table);
+    system = new DatapointSystem(table);
 
-    gui = new Gui();
+    gui = new Gui(system);
 }
 
 function draw() {
 	background(200);
 
-    g_system.plot();
+    system.plot();
 
     texture(mapimg);
     plane(g_plane_resolution[0],g_plane_resolution[1]);

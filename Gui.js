@@ -1,4 +1,6 @@
-function Gui(){
+function Gui(system){
+    this.system = system;
+    this.hover_status = false;
     //this.title = createElement('h1', 'Curved Time Paths')
     this.pg = createGraphics(400,100);
     this.low_payment_slider = createSlider(0,g_payment_cutoff,0);
@@ -8,12 +10,17 @@ function Gui(){
     console.log("high payment slider value: "+this.high_payment_slider.value());
     this.filter_button = createButton("Filter");
     this.top_map_button = createButton("Display Top Map");
+    
+    this.low_payment_value = createP(this.low_payment_slider.value());
+    this.high_payment_value = createP(this.high_payment_slider.value());
+    this.low_time_value = createP(this.low_time_slider.value());
+    this.high_time_value = createP(this.high_time_slider.value());
 
     this.pg.background(255,0);
     this.pg.textSize(40);
     this.pg.text("Curved Taxi Paths",30,50);
 
-    /////////////////////POSITION/SIZE OF SLIDERS////////////////////////
+    /////////////////////POSITIONS////////////////////////
     let start_height = 100;
     let slider_seperation = 60;
     let slider_width = 200
@@ -27,6 +34,11 @@ function Gui(){
     this.low_time_slider.position(50,start_height+offset+slider_height+3*slider_seperation);
     this.high_time_slider.position(50,start_height+offset+slider_height+4*slider_seperation);
 
+    this.low_payment_value.position(slider_width+20+50,start_height+offset+slider_height+slider_seperation);
+    this.high_payment_value.position(slider_width+20+50,start_height+offset+slider_height+2*slider_seperation);
+    this.low_time_value.position(slider_width+20+50,start_height+offset+slider_height+3*slider_seperation);
+    this.high_time_value.position(slider_width+20+50,start_height+offset+slider_height+4*slider_seperation);
+    /////////////////////SIZES////////////////////////
     this.low_payment_slider.size(slider_width,slider_height);
     this.high_payment_slider.size(slider_width,slider_height);
     this.low_time_slider.size(slider_width,slider_height);
@@ -49,13 +61,54 @@ function Gui(){
 
         var ok = checkRanges(low_payment,high_payment,low_time, high_time);
         if (ok){
-            g_system.filterDisplay(low_payment,high_payment,low_time,high_time);
+            system.filterDisplay(low_payment,high_payment,low_time,high_time);
         }
     }
 
+    this.updateLowPayment = () =>{
+        this.low_payment_value.html(this.low_payment_slider.value());
+    }
+
+    this.updateHighPayment = () =>{
+        this.high_payment_value.html(this.high_payment_slider.value());
+    }
+
+    this.updateHighTime = () =>{
+        this.high_time_value.html(this.high_time_slider.value());
+    }
+
+    this.updateLowTime = () =>{
+        this.low_time_value.html(this.low_time_slider.value());
+    }
+
+    this.setHoverStatusOfLowPayment = () =>{
+        this.low_payment_hover_status= true;
+    }
+
+    this.setHoverStatusOfHighPayment = () =>{
+        this.high_payment_hover_status= true;
+    }
+
+    this.setHoverStatusOfHighTime = () =>{
+        this.high_time_hover_status= true;
+    }
+
+    this.setHoverStatusOfLowTime = () =>{
+        this.low_time_hover_status= true;
+    }
     /////////////////////Callbacks////////////////////////
     this.top_map_button.mousePressed(this.toggleTopMap);
     this.filter_button.mousePressed(this.updateDisplay);
+
+    this.low_payment_slider.input(this.updateLowPayment);
+    this.high_payment_slider.input(this.updateHighPayment);
+    this.low_time_slider.input(this.updateLowTime);
+    this.high_time_slider.input(this.updateHighTime);
+
+    this.low_payment_slider.mouseOver(this.setHoverStatusOfLowPayment);
+    this.high_payment_slider.mouseOver(this.setHoverStatusOfHighPayment);
+    this.low_time_slider.mouseOver(this.setHoverStatusOfLowTime);
+    this.high_time_slider.mouseOver(this.setHoverStatusOfHighTime);
 }
 
 
@@ -67,6 +120,10 @@ Gui.prototype.displayTitle = function() {
     // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
     easycam.endHUD();
 };
+
+Gui.prototype.changeSlidersColor = function() {
+};
+
 
 /////////////////////Setup Functions////////////////////////
 function setSliderClass(sliders){
