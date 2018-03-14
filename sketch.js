@@ -8,6 +8,7 @@ let mapimg;
 let easycam;
 let table;
 let colorbar;
+let wallpaper;
 
 //Data
 let g_zoom = 10.6;
@@ -23,15 +24,13 @@ let g_z_offset = 200;
 function preload(){
     table = loadTable('trial_data.csv','csv','header');
     colorbar = loadImage('colormapManip_14.png')
-    mapimg = loadImage('map.png');
+    mapimg = loadImage('./data/map.png');
+    wallpaper = loadImage('./data/traffic1.jpg');
 }
 
 function setup() {
 	createCanvas(windowWidth, windowHeight,WEBGL);
 
-    //mapimg = loadImage('https://api.mapbox.com/styles/v1/mapbox/light-v9/static/'
-        //+g_origin[0]+','+g_origin[1]+','+g_zoom+',0,0/'+g_plane_resolution[0]+'x'+g_plane_resolution[1]+
-        //'?access_token=pk.eyJ1IjoiYmJsaSIsImEiOiJjamVjYXJsMGUwaHluMzNvZDE4MmkxYW40In0.AWDPnfoCzeVRY78xDLyjTQ');
     
     var state = {
         distance: 950,
@@ -52,8 +51,8 @@ function setup() {
 }
 
 function draw() {
-	background(200);
-
+    background(200);
+    //background(wallpaper);
     system.plot();
 
     texture(mapimg);
@@ -69,7 +68,6 @@ function draw() {
     }
 
     gui.displayTitle();
-    gui.changeSlidersColor();
 
   ////////////////////////////////////////////////////////////////////////////
 }

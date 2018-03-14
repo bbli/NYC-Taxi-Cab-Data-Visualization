@@ -21,19 +21,8 @@ function Slider(max,index,string){
         this.value.html(string+": "+this.slider.value());
     }
 
-    this.toInput = () =>{
-        this.slider.removeClass("slider");
-        this.slider.addClass("input");
-    }
-
-    this.toSlider = () =>{
-        this.slider.removeClass("input");
-        this.slider.addClass("slider");
-    }
     /////////////////////Callbacks////////////////////////
     this.slider.input(this.updateValue);
-    //this.slider.mouseOver(this.toInput);
-    //this.slider.mouseOut(this.toSlider);
 }
 
 
@@ -100,7 +89,6 @@ Gui.prototype.displayTitle = function() {
     // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
     easycam.endHUD();
 };
-
 
 /////////////////////Setup Functions////////////////////////
 //

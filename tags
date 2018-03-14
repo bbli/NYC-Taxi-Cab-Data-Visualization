@@ -4,13 +4,29 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+Datapoint	Datapoint.js	/^Datapoint.prototype.plot = function(idk) {$/;"	c
+DatapointSystem	Datapoint.js	/^DatapointSystem.prototype.plot = function(idk) {$/;"	c
+Gui	Gui.js	/^function Gui(system){$/;"	c
+Slider	Gui.js	/^function Slider(max,index,string){$/;"	c
 assert	Functions.js	/^function assert(condition, message){$/;"	f
-const	Datapoint.js	/^const Datapoint = function (pickup, dropoff,payment, timediff){$/;"	f
-const	Datapoint.js	/^const DatapointSystem = function (table){$/;"	c
+center	sketch.js	/^        center: [0,0,0],$/;"	p	class:setup.state
+checkRanges	Gui.js	/^function checkRanges(a,b,c,d){$/;"	f
+const	Datapoint.js	/^const Datapoint = function (pickup, dropoff,payment, timediff){$/;"	c
+control1	Datapoint.js	/^function control1(pickup,dropoff,strength){$/;"	f
+control2	Datapoint.js	/^function control2(pickup,dropoff,strength){$/;"	f
+displayTitle	Gui.js	/^Gui.prototype.displayTitle = function() {$/;"	m	class:Gui
+distance	sketch.js	/^        distance: 950,$/;"	p	class:setup.state
 draw	sketch.js	/^function draw() {$/;"	f
-mercX	Functions.js	/^function mercX(lon) {$/;"	f
-mercY	Functions.js	/^function mercY(lat) {$/;"	f
+drawCurve	Datapoint.js	/^function drawCurve(c1,pickup,dropoff,c2) {$/;"	f
+filterDisplay	Datapoint.js	/^DatapointSystem.prototype.filterDisplay = function(low_payment,high_payment, low_time,high_time) {$/;"	m	class:DatapointSystem
+getColor	Datapoint.js	/^function getColor(colorbar,payment){$/;"	f
+mercX	Functions.js	/^function mercX(lon, zoom) {$/;"	f
+mercY	Functions.js	/^function mercY(lat,zoom) {$/;"	f
+originTranslate	Functions.js	/^function originTranslate(array, projected_origin){$/;"	f
+plot	Datapoint.js	/^Datapoint.prototype.plot = function(idk) {$/;"	m	class:Datapoint
+plot	Datapoint.js	/^DatapointSystem.prototype.plot = function(idk) {$/;"	m	class:DatapointSystem
 preload	sketch.js	/^function preload(){$/;"	f
-project	Functions.js	/^function project(array){$/;"	f
-projectWorldCoordinates	Functions.js	/^function projectWorldCoordinates(datapoints){$/;"	f
+project	Functions.js	/^function project(array,zoom){$/;"	f
+projectWorldCoordinates	Functions.js	/^function projectWorldCoordinates(datapoints,origin){$/;"	f
+setShow	Datapoint.js	/^Datapoint.prototype.setShow = function(low_payment,high_payment,low_time,high_time) {$/;"	m	class:Datapoint
 setup	sketch.js	/^function setup() {$/;"	f
