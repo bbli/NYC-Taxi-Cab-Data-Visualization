@@ -1,117 +1,90 @@
-function Gui(system){
-    this.system = system;
+function Slider(max,index){
+    let start_height = 100;
+    let slider_width = 200
+    let slider_seperation = 60;
+    let slider_height = 50;
+    let offset = 25;
+
     this.hover_status = false;
+    this.slider = createSlider(0,max,0);
+    //This is just for setup. Will replace html element 
+    //for every change
+    this.value = createP(this.slider.value());
+
+    this.slider.position(50,start_height+offset+slider_height+(index+1)*slider_seperation)
+    this.value.position(slider_width+20+50,start_height+offset+slider_height+(index+1)*slider_seperation);
+    
+    this.slider.size(slider_width,slider_height);
+    this.slider.addClass('slider');
+
+    /////////////////////Methods////////////////////////
+    this.updateValue = () =>{
+        this.value.html(this.slider.value());
+    }
+    this.setHoverStatus = () =>{
+        this.hover_status= true;
+    }
+    /////////////////////Callbacks////////////////////////
+    this.slider.input(this.updateValue);
+    this.slider.mouseOver(this.setHoverStatus);
+}
+
+
+function Gui(system){
+
+    this.max_list = [g_payment_cutoff,g_payment_cutoff,g_time_cutoff,g_time_cutoff];
+    
+    this.slider_list = [];
+  ////////////////////////////////////////////////////////////////////////////
+    for (let i=0; i<4; i++){
+        var slider = new Slider(this.max_list[i],i);
+        this.slider_list.push(slider);
+    }
+
+    this.system = system;
     //this.title = createElement('h1', 'Curved Time Paths')
-    this.pg = createGraphics(400,100);
-    this.low_payment_slider = createSlider(0,g_payment_cutoff,0);
-    this.high_payment_slider = createSlider(0,g_payment_cutoff,g_payment_cutoff);
-    this.low_time_slider = createSlider(0,g_time_cutoff,0);
-    this.high_time_slider = createSlider(0,g_time_cutoff,g_time_cutoff);
-    console.log("high payment slider value: "+this.high_payment_slider.value());
     this.filter_button = createButton("Filter");
     this.top_map_button = createButton("Display Top Map");
     
-    this.low_payment_value = createP(this.low_payment_slider.value());
-    this.high_payment_value = createP(this.high_payment_slider.value());
-    this.low_time_value = createP(this.low_time_slider.value());
-    this.high_time_value = createP(this.high_time_slider.value());
 
+    this.pg = createGraphics(400,100);
     this.pg.background(255,0);
     this.pg.textSize(40);
     this.pg.text("Curved Taxi Paths",30,50);
 
     /////////////////////POSITIONS////////////////////////
-    let start_height = 100;
-    let slider_seperation = 60;
-    let slider_width = 200
-    let slider_height = 50;
-    let offset = 25;
     //this.title.position(windowWidth/2,50);
+    let start_height = 100;
+    let slider_width = 200
     this.top_map_button.position(windowWidth-slider_width,start_height);
     this.filter_button.position(50,start_height);
-    this.low_payment_slider.position(50,start_height+offset+slider_height+slider_seperation);
-    this.high_payment_slider.position(50,start_height+offset+slider_height+2*slider_seperation);
-    this.low_time_slider.position(50,start_height+offset+slider_height+3*slider_seperation);
-    this.high_time_slider.position(50,start_height+offset+slider_height+4*slider_seperation);
 
-    this.low_payment_value.position(slider_width+20+50,start_height+offset+slider_height+slider_seperation);
-    this.high_payment_value.position(slider_width+20+50,start_height+offset+slider_height+2*slider_seperation);
-    this.low_time_value.position(slider_width+20+50,start_height+offset+slider_height+3*slider_seperation);
-    this.high_time_value.position(slider_width+20+50,start_height+offset+slider_height+4*slider_seperation);
     /////////////////////SIZES////////////////////////
-    this.low_payment_slider.size(slider_width,slider_height);
-    this.high_payment_slider.size(slider_width,slider_height);
-    this.low_time_slider.size(slider_width,slider_height);
-    this.high_time_slider.size(slider_width,slider_height);
     this.filter_button.size(slider_width,125);
     this.top_map_button.size(slider_width,125);
 
-    this.sliders = selectAll('input');
-    setSliderClass(this.sliders);
 
     /////////////////////METHODS////////////////////////
     this.toggleTopMap = () => {
         g_toggle_top_map = (!g_toggle_top_map);
     }
     this.updateDisplay  = () => {
-        let low_payment = this.low_payment_slider.value();
-        let high_payment = this.high_payment_slider.value();
-        let low_time = this.low_time_slider.value();
-        let high_time = this.high_time_slider.value();
-
-        var ok = checkRanges(low_payment,high_payment,low_time, high_time);
+        let value_list = [];//low_payment,high_payment_slider,low_time,high_time
+        for (let slider of this.slider_list){
+            let value = slider.value();
+            value_list.push(value);
+        }
+        var ok = checkRanges(...value_list);
         if (ok){
-            system.filterDisplay(low_payment,high_payment,low_time,high_time);
+            system.filterDisplay(...value_list);
         }
     }
 
-    this.updateLowPayment = () =>{
-        this.low_payment_value.html(this.low_payment_slider.value());
-    }
-
-    this.updateHighPayment = () =>{
-        this.high_payment_value.html(this.high_payment_slider.value());
-    }
-
-    this.updateHighTime = () =>{
-        this.high_time_value.html(this.high_time_slider.value());
-    }
-
-    this.updateLowTime = () =>{
-        this.low_time_value.html(this.low_time_slider.value());
-    }
-
-    this.setHoverStatusOfLowPayment = () =>{
-        this.low_payment_hover_status= true;
-    }
-
-    this.setHoverStatusOfHighPayment = () =>{
-        this.high_payment_hover_status= true;
-    }
-
-    this.setHoverStatusOfHighTime = () =>{
-        this.high_time_hover_status= true;
-    }
-
-    this.setHoverStatusOfLowTime = () =>{
-        this.low_time_hover_status= true;
-    }
     /////////////////////Callbacks////////////////////////
     this.top_map_button.mousePressed(this.toggleTopMap);
     this.filter_button.mousePressed(this.updateDisplay);
 
-    this.low_payment_slider.input(this.updateLowPayment);
-    this.high_payment_slider.input(this.updateHighPayment);
-    this.low_time_slider.input(this.updateLowTime);
-    this.high_time_slider.input(this.updateHighTime);
-
-    this.low_payment_slider.mouseOver(this.setHoverStatusOfLowPayment);
-    this.high_payment_slider.mouseOver(this.setHoverStatusOfHighPayment);
-    this.low_time_slider.mouseOver(this.setHoverStatusOfLowTime);
-    this.high_time_slider.mouseOver(this.setHoverStatusOfHighTime);
 }
-
-
 Gui.prototype.displayTitle = function() {
     easycam.beginHUD();    
     texture(this.pg);
@@ -122,16 +95,21 @@ Gui.prototype.displayTitle = function() {
 };
 
 Gui.prototype.changeSlidersColor = function() {
+    for (let slider in this.slider_list){
+        if (slider.hover_status){
+            slider.removeClass("slider");
+            slider.addClass("input");
+        }
+        else {
+            slider.removeClass("input");
+            slider.addClass("slider");
+        }
+    }
 };
 
 
 /////////////////////Setup Functions////////////////////////
-function setSliderClass(sliders){
-    for (let slider of sliders){
-        slider.addClass('slider');
-    }
-}
-////////////////////////////////////////////////////////////////////////////
+//
 
 /////////////////////Helper Functions////////////////////////
 function checkRanges(a,b,c,d){
