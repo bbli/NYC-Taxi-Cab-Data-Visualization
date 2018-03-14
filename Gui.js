@@ -1,15 +1,14 @@
-function Slider(max,index){
+function Slider(max,index,string){
     let start_height = 100;
     let slider_width = 200
     let slider_seperation = 60;
     let slider_height = 50;
     let offset = 25;
 
-    this.hover_status = false;
     this.slider = createSlider(0,max,0);
     //This is just for setup. Will replace html element 
     //for every change
-    this.value = createP(this.slider.value());
+    this.value = createP(string+": "+this.slider.value());
 
     this.slider.position(50,start_height+offset+slider_height+(index+1)*slider_seperation)
     this.value.position(slider_width+20+50,start_height+offset+slider_height+(index+1)*slider_seperation);
@@ -19,25 +18,33 @@ function Slider(max,index){
 
     /////////////////////Methods////////////////////////
     this.updateValue = () =>{
-        this.value.html(this.slider.value());
+        this.value.html(string+": "+this.slider.value());
     }
-    this.setHoverStatus = () =>{
-        this.hover_status= true;
+
+    this.toInput = () =>{
+        this.slider.removeClass("slider");
+        this.slider.addClass("input");
+    }
+
+    this.toSlider = () =>{
+        this.slider.removeClass("input");
+        this.slider.addClass("slider");
     }
     /////////////////////Callbacks////////////////////////
     this.slider.input(this.updateValue);
-    this.slider.mouseOver(this.setHoverStatus);
+    //this.slider.mouseOver(this.toInput);
+    //this.slider.mouseOut(this.toSlider);
 }
 
 
 function Gui(system){
 
     this.max_list = [g_payment_cutoff,g_payment_cutoff,g_time_cutoff,g_time_cutoff];
-    
+    this.slider_names_list = ["Payment Min", "Payment Max", "Time Min", "Time Max"];
     this.slider_list = [];
   ////////////////////////////////////////////////////////////////////////////
     for (let i=0; i<4; i++){
-        var slider = new Slider(this.max_list[i],i);
+        var slider = new Slider(this.max_list[i],i,this.slider_names_list[i]);
         this.slider_list.push(slider);
     }
 
@@ -71,7 +78,7 @@ function Gui(system){
     this.updateDisplay  = () => {
         let value_list = [];//low_payment,high_payment_slider,low_time,high_time
         for (let slider of this.slider_list){
-            let value = slider.value();
+            let value = slider.slider.value();
             value_list.push(value);
         }
         var ok = checkRanges(...value_list);
@@ -92,19 +99,6 @@ Gui.prototype.displayTitle = function() {
     // textSize(40);
     // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
     easycam.endHUD();
-};
-
-Gui.prototype.changeSlidersColor = function() {
-    for (let slider in this.slider_list){
-        if (slider.hover_status){
-            slider.removeClass("slider");
-            slider.addClass("input");
-        }
-        else {
-            slider.removeClass("input");
-            slider.addClass("slider");
-        }
-    }
 };
 
 
