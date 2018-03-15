@@ -4,9 +4,9 @@
     height: 15px;
     border-radius: 5px;   
     /*background: #d3d3d3;*/
-    background-color: coral;
+    background-color: black;
     /*outline: none;*/
-    outline: thick ridge red;
+    /*outline: thick ridge red;*/
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
@@ -19,26 +19,29 @@
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%; 
-    background: #4CAF50;
+    background: yellow;
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: #4CAF50;
+    background: yellow;
     cursor: pointer;
 }
 button {
     font-family: "Sans Serif";
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    background: yellow;
 }
 
 p {
     font-family: "Sans Serif";
-    font-size: 14px;
+    font-size: 18px;
+    outline: black;
 }

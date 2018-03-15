@@ -22,10 +22,10 @@ let g_z_offset = 200;
 
 
 function preload(){
-    table = loadTable('trial_data.csv','csv','header');
-    colorbar = loadImage('colormapManip_14.png')
-    mapimg = loadImage('./data/map.png');
-    wallpaper = loadImage('./data/traffic1.jpg');
+    table = loadTable('./data/trial_data.csv','csv','header');
+    colorbar = loadImage('./data/colormapManip_14.png')
+    mapimg = loadImage('./data/map_light.png');
+    //wallpaper = loadImage('./data/traffic1.jpg');
 }
 
 function setup() {
@@ -33,7 +33,7 @@ function setup() {
 
     
     var state = {
-        distance: 950,
+        distance: 1200,
         center: [0,0,0],
         //rotation: [0.794139069590646, 0.6032586662637968, 0.03584418452263494, -0.06432195708491893]
         rotation : [1,0,0,0]
@@ -51,7 +51,8 @@ function setup() {
 }
 
 function draw() {
-    background(200);
+    //background(59,81,130);
+    background(192,192,192);
     //background(wallpaper);
     system.plot();
 

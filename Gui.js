@@ -29,7 +29,7 @@ function Slider(max,index,string){
 function Gui(system){
 
     this.max_list = [g_payment_cutoff,g_payment_cutoff,g_time_cutoff,g_time_cutoff];
-    this.slider_names_list = ["Payment Min", "Payment Max", "Time Min", "Time Max"];
+    this.slider_names_list = ["Min Payment", "Max Payment", "Min Time", "Max Time"];
     this.slider_list = [];
   ////////////////////////////////////////////////////////////////////////////
     for (let i=0; i<4; i++){
