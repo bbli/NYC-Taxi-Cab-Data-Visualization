@@ -1,5 +1,5 @@
 function Slider(max,index,string){
-    let start_height = 100;
+    let start_height = 60;
     let slider_width = 200
     let slider_seperation = 60;
     let slider_height = 50;
@@ -50,7 +50,7 @@ function Gui(system){
 
     /////////////////////POSITIONS////////////////////////
     //this.title.position(windowWidth/2,50);
-    let start_height = 100;
+    let start_height = 60;
     let slider_width = 200
     this.top_map_button.position(windowWidth-slider_width,start_height);
     this.filter_button.position(50,start_height);

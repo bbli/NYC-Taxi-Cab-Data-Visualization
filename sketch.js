@@ -46,6 +46,7 @@ function setup() {
     easycam.state_reset = state;
     //easycam = createEasyCam();
     system = new DatapointSystem(table);
+    console.log(system.datapoints[0].c);
 
     gui = new Gui(system);
 }
