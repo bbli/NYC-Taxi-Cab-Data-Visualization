@@ -17,7 +17,7 @@ const Datapoint = function (pickup, dropoff,payment, timediff){
     this.c1 = control1(pickup,dropoff,1);
     this.c2 = control2(pickup,dropoff,1);
 
-    this.curve = sq(map(timediff,0,g_time_cutoff,5,10));
+    this.curve = sq(map(timediff,0,g_time_cutoff,4,8));
 
     this.c = getColor(colorbar,payment);
 
@@ -38,7 +38,8 @@ function control2(pickup,dropoff,strength){
 
 function getColor(colorbar,payment){
     let mapped_payment = map(payment,0,g_payment_cutoff,100,500);
-    return colorbar.get(this.mapped_payment, colorbar.height/2);
+    //return colorbar.get(this.mapped_payment, colorbar.height/2);
+    return colorbar.get(mapped_payment,210);
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -48,8 +49,8 @@ Datapoint.prototype.plot = function(idk) {
         push();
         fill(255,10);
         //Turn on when I use p5 manager
-        //stroke(this.c);
-        stroke(0);
+        stroke(this.c);
+        //stroke(0);
         strokeWeight(3);
         //line(this.pickup[0],this.pickup[1],0,this.dropoff[0],this.dropoff[1],g_z_offset);
         curveTightness(this.curve);
@@ -84,7 +85,7 @@ const DatapointSystem = function (table){
 
     var rows = table.getRowCount();
     console.log('Row count is :'+rows);
-    for (let i = 0 ; i < floor(rows)/10; i++) {
+    for (let i = 0 ; i < 2500; i++) {
         var payment = table.getNum(i,5);
         var timediff = table.getNum(i,6);
         var pickup = [table.getNum(i,1), table.getNum(i,2)];
