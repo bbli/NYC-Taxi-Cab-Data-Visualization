@@ -88,11 +88,12 @@ function MainGui(system,controller){
 
 }
 
+////////////////////////////////////////////////////////////////////////////
 MainGui.prototype.display = function() {
     if (this.show) {
        setHTMLelements(this,"?");
        this.system.plot();
-       //this.displayMaps();
+       this.displayMaps();
     }
     else {
         setHTMLelements(this,"none");
@@ -105,11 +106,21 @@ function setHTMLelements(gui,string){
     }
     for (let element of gui.slider_list){
         element.slider.style("display",string)
+        element.value.style("display",string)
     }
 }
-
-/////////////////////Setup Functions////////////////////////
-//
+  ////////////////////
+MainGui.prototype.displayMaps = function() {
+    texture(mapimg);
+    plane(g_plane_resolution[0],g_plane_resolution[1]);
+    if (g_toggle_top_map){
+        push();
+        translate(0,0,g_z_offset);
+        plane(g_plane_resolution[0],g_plane_resolution[1]);
+        pop();
+    }
+};
+////////////////////////////////////////////////////////////////////////////
 
 /////////////////////Helper Functions////////////////////////
 function checkRanges(a,b,c,d){

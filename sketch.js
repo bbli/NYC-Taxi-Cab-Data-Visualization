@@ -57,19 +57,6 @@ function setup() {
 function draw() {
     background(192,192,192);
     //background(wallpaper);
-    //
-    texture(mapimg);
-    plane(g_plane_resolution[0],g_plane_resolution[1]);
-
-
-    if (g_toggle_top_map){
-
-        push();
-        translate(0,0,g_z_offset);
-        plane(g_plane_resolution[0],g_plane_resolution[1]);
-        pop();
-    }
-
     controller.setDisplay();
     g_maingui.display();
     controller.displayTitle();
