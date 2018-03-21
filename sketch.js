@@ -48,13 +48,13 @@ function setup() {
     system = new DatapointSystem(table);
     console.log(system.datapoints[0].c);
 
-    gui = new Gui(system);
+    gui = new MainGui(system);
 }
 
 function draw() {
-    //background(59,81,130);
     background(192,192,192);
     //background(wallpaper);
+    //
     system.plot();
 
     texture(mapimg);

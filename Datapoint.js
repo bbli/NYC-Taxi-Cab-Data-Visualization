@@ -18,7 +18,6 @@ const Datapoint = function (pickup, dropoff,payment, timediff){
     this.c2 = control2(pickup,dropoff,1);
 
     this.curve = sq(map(timediff,0,g_time_cutoff,4,8));
-
     this.c = getColor(colorbar,payment);
 
     this.show = true;
