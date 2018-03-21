@@ -48,15 +48,16 @@ function setup() {
     system = new DatapointSystem(table);
     console.log(system.datapoints[0].c);
 
-    gui = new MainGui(system);
+    controller = new GuiController();
+    g_maingui = new MainGui(system,controller);
+    //g_pickupgui = new PickupGui(system,controller);
+    //g_dropoffgui = new DropoffGui(system,controller);
 }
 
 function draw() {
     background(192,192,192);
     //background(wallpaper);
     //
-    system.plot();
-
     texture(mapimg);
     plane(g_plane_resolution[0],g_plane_resolution[1]);
 
@@ -69,7 +70,9 @@ function draw() {
         pop();
     }
 
-    gui.displayTitle();
+    controller.setDisplay();
+    g_maingui.display();
+    controller.displayTitle();
 
   ////////////////////////////////////////////////////////////////////////////
 }

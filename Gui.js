@@ -14,12 +14,10 @@ function Slider(max,index,string,start_width,start_height){
     
     this.slider.size(slider_width,slider_height);
     this.slider.addClass('slider');
-
     /////////////////////Methods////////////////////////
     this.updateValue = () =>{
         this.value.html(string+": "+this.slider.value());
     }
-
     /////////////////////Callbacks////////////////////////
     this.slider.input(this.updateValue);
 }
@@ -35,20 +33,17 @@ function Button(index,string,start_width, start_height,callback){
     this.button.mousePressed(callback);
 }
 
-function MainGui(system){
+function MainGui(system,controller){
     //this.title = createElement('h1', 'Curved Time Paths')
     //So Gui can talk with system
     this.system = system;
     //Used to update slider values display
     this.slider_list = [];
     //Used to turn display on/off
-    this.html_elements_list =[];
-  ////////////////////////////////////////////////////////////////////////////
-    this.pg = createGraphics(400,100);
-    this.pg.background(255,0);
-    this.pg.textSize(40);
-    this.pg.text("Curved Taxi Paths",30,50);
-    /////////////////////METHODS////////////////////////
+    this.button_list =[];
+    this.GuiController = controller;
+    this.show=true;
+    /////////////////////Callbacks////////////////////////
     this.toggleTopMap = () => {
         g_toggle_top_map = (!g_toggle_top_map);
     }
@@ -63,7 +58,12 @@ function MainGui(system){
             system.filterDisplay(...value_list);
         }
     }
-    /////////////////////Callbacks////////////////////////
+    this.showPickupGui = () => {
+        this.GuiController.gui_state = 2;
+    }
+    this.showDropoffGui = () => {
+        this.GuiController.gui_state = 3;
+    }
     /////////////////////INITALIZING SLIDERS////////////////////////
     let start_height = 60;
     let start_width = 60;
@@ -72,29 +72,41 @@ function MainGui(system){
     for (let i=0; i<4; i++){
         let slider = new Slider(max_list[i],i,slider_names_list[i],start_width,start_height);
         this.slider_list.push(slider);
-        this.html_elements_list.push(slider);
     }
     /////////////////////INITALIZING BUTTONS////////////////////////
     //Except Time/Payment button
-    this.html_elements_list.push(new Button(0,"Time/Payment",start_width,start_height,this.updateDisplay));
+    this.button_list.push(new Button(0,"Time/Payment",start_width,start_height,this.updateDisplay));
 
-    let callback_list = [this.toggleTopMap, this.toggleTopMap, this.toggleTopMap];
+    let callback_list = [this.toggleTopMap, this.showPickupGui, this.showDropoffGui];
     let button_names_list=["Display Top Map", "Pickup", "Dropoff"];
+    let button_start_width = windowWidth-210;
     for (let i=0; i<3; i++){
-        //NOT FINISHED
-        let button = new Button(i,button_names_list[i],windowWidth-210,start_height,callback_list[i]);
-        this.html_elements_list.push(button);
+        let button = new Button(i,button_names_list[i],button_start_width,
+                                start_height,callback_list[i]);
+        this.button_list.push(button);
     }
 
 }
-MainGui.prototype.displayTitle = function() {
-    easycam.beginHUD();    
-    texture(this.pg);
-    rect(windowWidth/2-200,0, 400,100);
-    // textSize(40);
-    // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
-    easycam.endHUD();
+
+MainGui.prototype.display = function() {
+    if (this.show) {
+       setHTMLelements(this,"?");
+       this.system.plot();
+       //this.displayMaps();
+    }
+    else {
+        setHTMLelements(this,"none");
+    }
 };
+  ////////////////////
+function setHTMLelements(gui,string){
+    for (let element of gui.button_list){
+        element.button.style("display",string);
+    }
+    for (let element of gui.slider_list){
+        element.slider.style("display",string)
+    }
+}
 
 /////////////////////Setup Functions////////////////////////
 //
