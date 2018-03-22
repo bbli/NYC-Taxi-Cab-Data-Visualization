@@ -33,30 +33,28 @@ function MainGui(system,controller){
         this.GuiController.gui_state = 3;
     }
     /////////////////////INITALIZING SLIDERS////////////////////////
-    let start_height = 60;
-    let start_width = 60;
     let max_list = [g_payment_cutoff,g_payment_cutoff,g_time_cutoff,g_time_cutoff];
     let slider_names_list = ["Min Payment", "Max Payment", "Min Time", "Max Time"];
     for (let i=0; i<4; i++){
-        let slider = new Slider(max_list[i],i,slider_names_list[i],start_width,start_height);
+        let slider = new Slider(max_list[i],i,slider_names_list[i],this.GuiController.button_left_width,this.GuiController.button_start_height);
         this.slider_list.push(slider);
         this.html_elements_list.push(slider.slider);
         this.html_elements_list.push(slider.value);
     }
     /////////////////////INITALIZING BUTTONS////////////////////////
     //Except Time/Payment button
-    //this.button_list.push(new Button(0,"Time/Payment",start_width,start_height,this.updateDisplay));
-    let first_button = new Button(0,"Time/Payment",start_width,start_height,this.updateDisplay);
+    //this.button_list.push(new Button(0,"Time/Payment",this.GuiController.button_left_width,this.GuiController.button_start_height,this.updateDisplay));
+    let first_button = new Button(0,"Time/Payment",this.GuiController.button_left_width,
+                                this.GuiController.button_start_height,this.updateDisplay);
     this.button_list.push(first_button);
     this.html_elements_list.push(first_button.button);
 
     let callback_list = [this.toggleTopMap, this.showPickupGui, this.showDropoffGui];
     let button_names_list=["Display Top Map", "Pickup", "Dropoff"];
-    let button_start_width = windowWidth-210;
 
     for (let i=0; i<3; i++){
-        let button = new Button(i,button_names_list[i],button_start_width,
-                                start_height,callback_list[i]);
+        let button = new Button(i,button_names_list[i],this.GuiController.button_right_width,
+                                this.GuiController.button_start_height,callback_list[i]);
         this.button_list.push(button);
         this.html_elements_list.push(button.button);
     }
