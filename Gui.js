@@ -18,16 +18,7 @@ function MainGui(system,controller){
         this.toggle_top_map = (!this.toggle_top_map);
     }
     this.updateDisplay  = () => {
-        let value_list = [];//low_payment,high_payment_slider,low_time,high_time
-        for (let slider of this.slider_list){
-            let value = slider.slider.value();
-            value_list.push(value);
-        }
-        var ok = checkRanges(...value_list);
-        if (ok){
-            this.values_list = value_list;
-            system.filterDisplay();
-        }
+        system.filterDisplay();
     }
     this.showPickupGui = () => {
         this.GuiController.gui_state = 2;
@@ -73,6 +64,14 @@ function MainGui(system,controller){
                     setHTMLelements(this,"none");
                 }
     };
+    this.values_list = function(){
+        let list = [];//low_payment,high_payment_slider,low_time,high_time
+        for (let slider of this.slider_list){
+            let value = slider.slider.value();
+            list.push(value);
+        }
+        return list
+    }
 }
 
 
@@ -139,8 +138,9 @@ function PickupGui(controller){
                 }
     };
     this.location = function(){
-        // Change to map coordinates
-        //return [this.x,this.y]
+        let x= this.x - windowWidth/2;
+        let y = this.y - windowHeight/2;
+        return [x,y]
     } 
 }
 

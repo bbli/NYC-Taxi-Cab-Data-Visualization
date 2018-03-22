@@ -112,13 +112,24 @@ DatapointSystem.prototype.plot = function(idk) {
 
 DatapointSystem.prototype.filterDisplay = function() {
     //Get values from the GUI's
-    var values_list = g_maingui.values_list;
-    var pickup_location = g_pickupgui.location();
-    var pickup_radius = g_pickupgui.radius;
-    var dropoff_location = g_dropoffgui.location();
-    var dropoff_radius = g_dropoffgui.radius;
-    for (let point of this.datapoints){
-        point.setShow(...values_list,pickup_location,pickup_radius,dropoff_location,dropoff_radius);
+    //var values_list = g_maingui.values_list;
+    //var pickup_location = g_pickupgui.location();
+    //var pickup_radius = g_pickupgui.radius;
+    //var dropoff_location = g_dropoffgui.location();
+    //var dropoff_radius = g_dropoffgui.radius;
+    //for (let point of this.datapoints){
+        //point.setShow(...values_list,pickup_location,pickup_radius,dropoff_location,dropoff_radius);
+    //}
+    var values_list = g_maingui.values_list();
+    var ok = checkRanges(...values_list);
+    if (ok){
+        var pickup_location = g_pickupgui.location();
+        var pickup_radius = g_pickupgui.radius;
+        var dropoff_location = g_dropoffgui.location();
+        var dropoff_radius = g_dropoffgui.radius;
+        for (let point of this.datapoints){
+            point.setShow(...values_list,pickup_location,pickup_radius,dropoff_location,dropoff_radius);
+        }
     }
 };
 
