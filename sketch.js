@@ -52,6 +52,8 @@ function setup() {
     g_maingui = new MainGui(system,controller);
     g_pickupgui = new PickupGui(controller);
     //g_dropoffgui = new DropoffGui(controller);
+    g_dropoffgui = Object.create(new PickupGui(controller));
+    DropoffGui(g_dropoffgui);
 }
 
 function draw() {

@@ -59,13 +59,16 @@ Datapoint.prototype.plot = function(idk) {
     }
 };
 
-Datapoint.prototype.setShow = function(low_payment,high_payment,low_time,high_time) {
+Datapoint.prototype.setShow = function(low_payment,high_payment,low_time,high_time, pickup_location, pickup_radius,dropoff_location,dropoff_radius) {
     var a = (low_payment<this.payment);
     var b = (high_payment>this.payment);
     var c = (low_time<this.timediff);
     var d = (high_time>this.timediff);
     
-    var bool = (a&&b&&c&&d);
+    var slider_bool = (a&&b&&c&&d);
+    var pickup_bool = inDistance(this.pickup,pickup_location,pickup_radius)
+    var dropoff_bool = inDistance(this.dropoff,dropoff_location,dropoff_radius)
+    var bool = (slider_bool&&pickup_bool&&dropoff_bool);
     this.show = bool;
 };
 
@@ -75,6 +78,13 @@ Datapoint.prototype.setShow = function(low_payment,high_payment,low_time,high_ti
 function drawCurve(c1,pickup,dropoff,c2) {
     curve(c1[0],c1[1],c1[2],pickup[0],pickup[1],0,dropoff[0],dropoff[1],g_z_offset,c2[0],c2[1],c2[2]);
 };
+
+function inDistance(first_location, second_location,radius){
+    var deltaX = first_location[0]-second_location[0];
+    var deltaY = first_location[1]-second_location[1];
+    var distance = sqrt(deltaX*deltaX + deltaY*deltaY);
+    return (distance<radius)
+}
 ////////////////////////////////////////////////////////////////////////////
 
 
@@ -100,9 +110,15 @@ DatapointSystem.prototype.plot = function(idk) {
     }
 };
 
-DatapointSystem.prototype.filterDisplay = function(low_payment,high_payment, low_time,high_time) {
+DatapointSystem.prototype.filterDisplay = function() {
+    //Get values from the GUI's
+    var values_list = g_maingui.values_list;
+    var pickup_location = g_pickupgui.location();
+    var pickup_radius = g_pickupgui.radius;
+    var dropoff_location = g_dropoffgui.location();
+    var dropoff_radius = g_dropoffgui.radius;
     for (let point of this.datapoints){
-        point.setShow(low_payment,high_payment,low_time,high_time);
+        point.setShow(...values_list,pickup_location,pickup_radius,dropoff_location,dropoff_radius);
     }
 };
 

@@ -11,6 +11,8 @@ function MainGui(system,controller){
     this.GuiController = controller;
     this.show=true;
     this.toggle_top_map=true;
+    //Needed for system to update filter
+    this.values_list = [];
     /////////////////////Callbacks////////////////////////
     this.toggleTopMap = () => {
         this.toggle_top_map = (!this.toggle_top_map);
@@ -23,7 +25,8 @@ function MainGui(system,controller){
         }
         var ok = checkRanges(...value_list);
         if (ok){
-            system.filterDisplay(...value_list);
+            this.values_list = value_list;
+            system.filterDisplay();
         }
     }
     this.showPickupGui = () => {
@@ -118,7 +121,6 @@ function PickupGui(controller){
         this.y = windowHeight/2;
         this.radius = 1200;
     }
-    this.t_variable =0;
     /////////////////////INITALIZING BUTTONS////////////////////////
     this.reset_button = new Button(0,"Reset Filter",this.GuiController.button_left_width,
     this.GuiController.button_start_height,this.resetState);
@@ -129,16 +131,17 @@ function PickupGui(controller){
     /////////////////////Methods////////////////////////
     this.display = function() {
                 if (this.show) {
-                   this.t_variable =10;
                    setHTMLelements(this,"");
                    this.displayMap();
                 }
                 else {
-                    this.t_variable = 20;
                     setHTMLelements(this,"none");
                 }
     };
-    
+    this.location = function(){
+        // Change to map coordinates
+        //return [this.x,this.y]
+    } 
 }
 
 PickupGui.prototype.displayMap = function() {
@@ -178,12 +181,12 @@ function mouseDragged(event){
         g_pickupgui.x = mouseX;
         g_pickupgui.y = mouseY;
     }
-    //else if (g_dropoffgui.show){
-        //g_dropoffgui.x = mouseX;
-        //g_dropoffgui.y = mouseY;
-    //}
+    else if (g_dropoffgui.show){
+        g_dropoffgui.x = mouseX;
+        g_dropoffgui.y = mouseY;
+    }
 }
 
-//function DropoffGui(system,controller){
-    //this.GuiController = controller
-//}
+function DropoffGui(gui){
+   //figure out tomorrow 
+}
