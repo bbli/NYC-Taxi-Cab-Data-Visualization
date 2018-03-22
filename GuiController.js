@@ -14,12 +14,12 @@ function GuiController(){
 }
 
 GuiController.prototype.displayTitle = function() {
-    easycam.beginHUD();    
+    g_easycam.beginHUD();    
     texture(this.pg);
     rect(windowWidth/2-200,0, 400,100);
     // textSize(40);
     // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
-    easycam.endHUD();
+    g_easycam.endHUD();
 };
 
 GuiController.prototype.setDisplay = function() {

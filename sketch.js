@@ -4,7 +4,8 @@ let gui;
 
 //Setup
 let mapimg;
-let easycam;
+let g_easycam;
+let g_state;
 let table;
 let colorbar;
 let wallpaper;
@@ -31,7 +32,7 @@ function setup() {
 	createCanvas(windowWidth, windowHeight,WEBGL);
 
     
-    var state = {
+    g_state = {
         distance: 1200,
         center: [0,0,0],
         //rotation: [0.794139069590646, 0.6032586662637968, 0.03584418452263494, -0.06432195708491893]
@@ -39,20 +40,20 @@ function setup() {
     }
     //inserting state here does not work for some reason.
     // As you can see, I had to manually set the inital and reset states.
-    easycam = createEasyCam(p5.RendererGL,state);
-    easycam.setDistanceMax(1500);
-    easycam.setState(state);
-    easycam.state_reset = state;
-    //easycam = createEasyCam();
+    g_easycam = createEasyCam(p5.RendererGL,g_state);
+    g_easycam.setDistanceMax(1500);
+    g_easycam.setState(g_state);
+    g_easycam.state_reset = g_state;
+    //g_easycam = createEasyCam();
     system = new DatapointSystem(table);
     console.log(system.datapoints[0].c);
 
     controller = new GuiController();
 
     g_maingui = new MainGui(system,controller);
-    g_pickupgui = new PickupGui(controller);
+    g_pickupgui = new PickupGui(system,controller);
     //g_dropoffgui = new DropoffGui(controller);
-    g_dropoffgui = Object.create(new PickupGui(controller));
+    g_dropoffgui = Object.create(new PickupGui(system,controller));
     DropoffGui(g_dropoffgui);
 }
 

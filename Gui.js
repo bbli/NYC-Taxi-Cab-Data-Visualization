@@ -100,7 +100,8 @@ function checkRanges(a,b,c,d){
 }
 ////////////////////////////////////////////////////////////////////////////
 
-function PickupGui(controller){
+function PickupGui(system,controller){
+    this.system = system;
     this.GuiController = controller;
     this.show=false;
     this.html_elements_list =[];
@@ -110,9 +111,10 @@ function PickupGui(controller){
     this.y = windowHeight/2;
     /////////////////////Callbacks////////////////////////
     //Needs to be initalzed before buttons
-    this.showMainGui = () => {
-        //apply filter
-        this.GuiController.gui_state = 1;
+    this.updateDisplay = () => {
+        g_easycam.setState(g_state);
+        this.system.filterDisplay();
+        setTimeout(() => this.GuiController.gui_state = 1 , 300);
     }
 
     this.resetState = () => {
@@ -125,7 +127,7 @@ function PickupGui(controller){
     this.GuiController.button_start_height,this.resetState);
     this.html_elements_list.push(this.reset_button.button);
     this.apply_button = new Button(0,"Apply Filter",this.GuiController.button_right_width,
-    this.GuiController.button_start_height,this.showMainGui);
+    this.GuiController.button_start_height,this.updateDisplay);
     this.html_elements_list.push(this.apply_button.button);
     /////////////////////Methods////////////////////////
     this.display = function() {
@@ -145,7 +147,7 @@ function PickupGui(controller){
 }
 
 PickupGui.prototype.displayMap = function() {
-    easycam.beginHUD();
+    g_easycam.beginHUD();
     push();
     texture(mapimg);
     translate(windowWidth/2,windowHeight/2);
@@ -155,7 +157,7 @@ PickupGui.prototype.displayMap = function() {
     fill(255,255,0,160);
     ellipse(this.x,this.y,this.radius,this.radius);
     pop();
-    easycam.endHUD();
+    g_easycam.endHUD();
 };
 
 function mouseWheel(event){
