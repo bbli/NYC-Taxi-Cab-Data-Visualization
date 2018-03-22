@@ -51,9 +51,9 @@ function setup() {
     controller = new GuiController();
 
     g_maingui = new MainGui(system,controller);
-    g_pickupgui = new PickupGui(system,controller);
+    g_pickupgui = new PickupGui(system,controller,"Pickup");
     //g_dropoffgui = new DropoffGui(controller);
-    g_dropoffgui = Object.create(new PickupGui(system,controller));
+    g_dropoffgui = Object.create(new PickupGui(system,controller,"Dropoff"));
     DropoffGui(g_dropoffgui);
 }
 
@@ -63,7 +63,7 @@ function draw() {
     controller.setDisplay();
     g_maingui.display();
     g_pickupgui.display();
-    controller.displayTitle();
+    g_dropoffgui.display();
 
   ////////////////////////////////////////////////////////////////////////////
 }

@@ -1,4 +1,9 @@
 function MainGui(system,controller){
+    this.title = "Curved Taxi Paths";
+    this.pg = createGraphics(400,100);
+    this.pg.background(255,10);
+    this.pg.textSize(40);
+    this.pg.text(this.title,30,50);
     //this.title = createElement('h1', 'Curved Time Paths')
     //So Gui can talk with system
     this.system = system;
@@ -59,6 +64,7 @@ function MainGui(system,controller){
                    setHTMLelements(this,"");
                    this.system.plot();
                    this.displayMaps();
+                   this.displayTitle();
                 }
                 else {
                     setHTMLelements(this,"none");
@@ -86,6 +92,14 @@ MainGui.prototype.displayMaps = function() {
         pop();
     }
 };
+MainGui.prototype.displayTitle = function() {
+        g_easycam.beginHUD();    
+        texture(this.pg);
+        rect(windowWidth/2-200,0, 400,100);
+        // textSize(40);
+        // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
+        g_easycam.endHUD();
+};
 ////////////////////
 function setHTMLelements(gui,string){
     for (let element of gui.html_elements_list){
@@ -100,7 +114,12 @@ function checkRanges(a,b,c,d){
 }
 ////////////////////////////////////////////////////////////////////////////
 
-function PickupGui(system,controller){
+function PickupGui(system,controller,title){
+    this.pg = createGraphics(400,100);
+    this.pg.background(255,10);
+    this.pg.textSize(40);
+    this.pg.text(title,90,50);
+
     this.system = system;
     this.GuiController = controller;
     this.show=false;
@@ -109,6 +128,8 @@ function PickupGui(system,controller){
     this.radius = 1200;
     this.x = windowWidth/2;
     this.y = windowHeight/2;
+
+    this.title = "Pickup"
     /////////////////////Callbacks////////////////////////
     //Needs to be initalzed before buttons
     this.updateDisplay = () => {
@@ -134,6 +155,7 @@ function PickupGui(system,controller){
                 if (this.show) {
                    setHTMLelements(this,"");
                    this.displayMap();
+                   this.displayTitle();
                 }
                 else {
                     setHTMLelements(this,"none");
@@ -160,13 +182,23 @@ PickupGui.prototype.displayMap = function() {
     g_easycam.endHUD();
 };
 
+PickupGui.prototype.displayTitle = function() {
+        g_easycam.beginHUD();    
+        texture(this.pg);
+        rect(windowWidth/2-200,0, 400,100);
+        // textSize(40);
+        // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
+        g_easycam.endHUD();
+};
+
+
 function mouseWheel(event){
     if (g_pickupgui.show){
         g_pickupgui.radius += increment(event);
     }
-    //else if (g_dropoffgui.show){
-        //g_dropoffgui.radius += increment(event);
-    //}
+    else if (g_dropoffgui.show){
+        g_dropoffgui.radius += increment(event);
+    }
 }
 
 function increment(event){
