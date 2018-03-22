@@ -21,16 +21,16 @@ function project(array,zoom){
 ////////////////////
 function mercX(lon, zoom) {
 	lon = radians(lon);
-	var a = (256 / PI) * pow(2, zoom);
-	var b = lon + PI;
-	return a * b;
+	var a = (256/PI)*pow(2,zoom);
+	var b = lon+PI;
+	return a*b;
 }
 function mercY(lat,zoom) {
 	lat = radians(lat);
-	var a = (256 / PI) * pow(2, zoom);
-	var b = tan(PI / 4 + lat / 2);
-	var c = PI - log(b);
-	return a * c;
+	var a = (256/PI)*pow(2,zoom);
+	var b = tan(PI/4+ lat/ 2);
+	var c = PI-log(b);
+	return a*c;
 }
 ////////////////////
 
