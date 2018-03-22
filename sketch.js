@@ -50,8 +50,8 @@ function setup() {
     controller = new GuiController();
 
     g_maingui = new MainGui(system,controller);
-    g_pickupgui = new PickupGui(system,controller);
-    //g_dropoffgui = new DropoffGui(system,controller);
+    g_pickupgui = new PickupGui(controller);
+    //g_dropoffgui = new DropoffGui(controller);
 }
 
 function draw() {

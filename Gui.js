@@ -62,7 +62,7 @@ function MainGui(system,controller){
     /////////////////////Methods////////////////////////
     this.display = function() {
                 if (this.show) {
-                   setHTMLelements(this,"?");
+                   setHTMLelements(this,"");
                    this.system.plot();
                    this.displayMaps();
                 }
@@ -98,7 +98,7 @@ function checkRanges(a,b,c,d){
 }
 ////////////////////////////////////////////////////////////////////////////
 
-function PickupGui(system,controller){
+function PickupGui(controller){
     this.GuiController = controller;
     this.show=false;
     this.html_elements_list =[];
@@ -107,6 +107,7 @@ function PickupGui(system,controller){
     this.x = windowWidth/2;
     this.y = windowHeight/2;
     /////////////////////Callbacks////////////////////////
+    //Needs to be initalzed before buttons
     this.showMainGui = () => {
         //apply filter
         this.GuiController.gui_state = 1;
@@ -117,21 +118,26 @@ function PickupGui(system,controller){
         this.y = windowHeight/2;
         this.radius = 1200;
     }
+    this.t_variable =0;
+    /////////////////////INITALIZING BUTTONS////////////////////////
+    this.reset_button = new Button(0,"Reset Filter",this.GuiController.button_left_width,
+    this.GuiController.button_start_height,this.resetState);
+    this.html_elements_list.push(this.reset_button.button);
+    this.apply_button = new Button(0,"Apply Filter",this.GuiController.button_right_width,
+    this.GuiController.button_start_height,this.showMainGui);
+    this.html_elements_list.push(this.apply_button.button);
     /////////////////////Methods////////////////////////
     this.display = function() {
                 if (this.show) {
-                   setHTMLelements(this,"?");
+                   this.t_variable =10;
+                   setHTMLelements(this,"");
                    this.displayMap();
                 }
                 else {
+                    this.t_variable = 20;
                     setHTMLelements(this,"none");
                 }
     };
-    /////////////////////INITALIZING BUTTONS////////////////////////
-    this.reset_button = new Button(0,"Reset Filter",this.GuiController.button_left_width,
-    this.GuiController.button_start_height,this.resetState)
-    this.apply_button = new Button(0,"Apply Filter",this.GuiController.button_right_width,
-    this.GuiController.button_start_height,this.showMainGui);
     
 }
 
@@ -177,3 +183,7 @@ function mouseDragged(event){
         //g_dropoffgui.y = mouseY;
     //}
 }
+
+//function DropoffGui(system,controller){
+    //this.GuiController = controller
+//}
