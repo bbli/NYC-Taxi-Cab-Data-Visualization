@@ -1,7 +1,6 @@
 //User defined
 let system;
 let gui;
-let g_toggle_top_map =true;
 
 //Setup
 let mapimg;
@@ -49,6 +48,7 @@ function setup() {
     console.log(system.datapoints[0].c);
 
     controller = new GuiController();
+
     g_maingui = new MainGui(system,controller);
     //g_pickupgui = new PickupGui(system,controller);
     //g_dropoffgui = new DropoffGui(system,controller);
@@ -64,3 +64,4 @@ function draw() {
   ////////////////////////////////////////////////////////////////////////////
 }
 
+  ////////////////////
