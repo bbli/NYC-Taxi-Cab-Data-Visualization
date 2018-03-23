@@ -65,6 +65,7 @@ function MainGui(system,controller){
                    this.system.plot();
                    this.displayMaps();
                    this.displayTitle();
+                   this.displayStatus();
                 }
                 else {
                     setHTMLelements(this,"none");
@@ -100,6 +101,25 @@ MainGui.prototype.displayTitle = function() {
         // text("Curved Taxi Paths",windowWidth/2,windowHeight/2);
         g_easycam.endHUD();
 };
+
+MainGui.prototype.displayStatus = function() {
+    let pickup_status = checkStatus(g_pickupgui);
+    let dropoff_status = checkStatus(g_dropoffgui);
+    g_easycam.beginHUD();
+    push();
+    if (pickup_status){fill(0,0,0)}
+    else {fill(255,255,0)};
+    ellipse(windowWidth-300,240,50);
+    pop();
+
+    push();
+    if (dropoff_status){fill(0,0,0)}
+    else {fill(255,255,0)};
+    ellipse(windowWidth-300,370,50);
+    pop();
+    g_easycam.endHUD();
+};
+
 ////////////////////
 function setHTMLelements(gui,string){
     for (let element of gui.html_elements_list){
@@ -111,6 +131,15 @@ function checkRanges(a,b,c,d){
     var first = (a<b);
     var second = (c<d);
     return first&&second
+}
+
+function checkStatus(gui){
+    let location = gui.location();
+
+    let location_x_bool = (location[0]==0);
+    let location_y_bool = (location[1]==0);
+    let radius_bool = (gui.radius == gui.reset_radius);
+    return (location_x_bool&&location_y_bool&&radius_bool)
 }
 ////////////////////////////////////////////////////////////////////////////
 
@@ -129,6 +158,8 @@ function PickupGui(system,controller,title){
     this.x = windowWidth/2;
     this.y = windowHeight/2;
 
+    this.reset_radius = 1200;
+
     this.title = "Pickup"
     /////////////////////Callbacks////////////////////////
     //Needs to be initalzed before buttons
@@ -141,7 +172,7 @@ function PickupGui(system,controller,title){
     this.resetState = () => {
         this.x = windowWidth/2;
         this.y = windowHeight/2;
-        this.radius = 1200;
+        this.radius = this.reset_radius;
     }
     /////////////////////INITALIZING BUTTONS////////////////////////
     this.reset_button = new Button(0,"Reset Filter",this.GuiController.button_left_width,
