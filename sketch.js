@@ -22,7 +22,7 @@ let g_z_offset = 200;
 
 
 function preload(){
-    table = loadTable('./data/trial_data.csv','csv','header');
+    table = loadTable('./data/final__data.csv','csv','header');
     colorbar = loadImage('./data/colormapManip_14.png')
     mapimg = loadImage('./data/map_light.png');
     //wallpaper = loadImage('./data/traffic1.jpg');
