@@ -12,21 +12,21 @@ The specifics of my visualization are(best read after running the code):
 ## Result
 I decided to only use 2500 out of a possible 10,000 datapoints so the project would run smoothly. The map of New York City was taken using MapBox's Static API playground.
 
-![top view](final_one.png?raw=True)
+![top view](pics/final_one.png?raw=True)
 
 By adjusting the sliders, you can filter the curves based on the payment and time interval you specify.Note that in order to update, the Max sliders need to be greater than their Min counterparts. Also the times and payments have a cutoff, so that I can utilize a larger range of the spectrum.
 The purpose of Top Map Button is so you can see where each datapoint's exact pickup location is, as it is somewhat blocked by top plane.
 
-![side view](final_two.png?raw=True)
+![side view](pics/final_two.png?raw=True)
 
 When you click on the Pickup/Dropoff Button, you will be shown a different display with the map plane and a yellow circle. The purpose of this is to allow the user to also filter pickup/dropoff locations. Click and drag the circle to the pickup/dropoff location you want to see, and use the mouse wheel to increase the location radius
 
-![location selector](final_three.png?raw=True)
+![location selector](pics/final_three.png?raw=True)
 
 Then, clicking the "Apply Filter" button will filter out the datapoints based on the current setting of the pickup and dropoff circle, as well as the slider's current settings. Notice now that the circle next to the "Pickup" button is now yellow, indicating that we have chosen a filter for the pickup location. To not have any pickup location filter, click the "Reset" button on the Pickup title screen.
 
-![final](final_four.png?raw=True)
+![final](pics/final_four.png?raw=True)
 
 ## Running the Project
-To run this project in your browser, open up a http server. I used nodejs's [http server](https://www.npmjs.com/package/http-server) inside this repo.
+To run this project in your browser, open up a http server inside this repo. I used nodejs's [http server](https://www.npmjs.com/package/http-server).
 Tested on firefox and vivaldi. Vivaldi performs much better.
